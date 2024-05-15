@@ -4,12 +4,14 @@ import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
 interface CategoryGridProps {
   title: string;
   color?: string;
+  onPress?: () => void;
+
 }
 
-const CategoryGrid: React.FC<CategoryGridProps> = ({ title, color }) => {
+const CategoryGrid: React.FC<CategoryGridProps> = ({ title, color, onPress }) => {
   return (
     <View style={[styles.itemGrid, {backgroundColor:color}]}>
-      <Pressable  android_ripple={{color: '#ccc'}} style={({pressed}) => [styles.buttonContainer,pressed ? styles.buttonPressed : null,]}>
+      <Pressable  android_ripple={{color: '#ccc'}} style={({pressed}) => [styles.buttonContainer,pressed ? styles.buttonPressed : null,]} onPress={onPress}>
         <View style={styles.textContainer}>
         <Text style={styles.titleContainer}>{title}</Text>
         </View>
