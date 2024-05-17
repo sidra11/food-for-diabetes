@@ -7,7 +7,7 @@ import React from "react";
 const CategoriesScreen: React.FC = ({ navigation }: any) => {
   const renderCategoryItem = ({ item }: { item: Category }): JSX.Element => {
     const pressHandles = () => {
-      navigation.navigate("MealsList");
+      navigation.navigate("MealsList", { categoryId: item.id});
     };
     return (
       <CategoryGrid

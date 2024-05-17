@@ -1,10 +1,12 @@
 import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import CategoriesScreen from "../screens/CategoriesScreen";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
 import MealsScreen from "../screens/MealsScreen";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function Page() {
   return (
