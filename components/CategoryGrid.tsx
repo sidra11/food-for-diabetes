@@ -11,7 +11,7 @@ interface CategoryGridProps {
 const CategoryGrid: React.FC<CategoryGridProps> = ({ title, color, onPress }) => {
   return (
     <View style={[styles.itemGrid, {backgroundColor:color}]}>
-      <Pressable  android_ripple={{color: '#ccc'}} style={({pressed}) => [styles.buttonContainer,pressed ? styles.buttonPressed : null,]} onPress={onPress}>
+      <Pressable  android_ripple={{color: '#cccccc'}} style={({pressed}) => [styles.buttonContainer,pressed ? styles.buttonPressed : null,]} onPress={onPress}>
         <View style={styles.textContainer}>
         <Text style={styles.titleContainer}>{title}</Text>
         </View>
