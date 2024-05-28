@@ -1,33 +1,46 @@
 import React from "react";
-import { MEALS } from "../data/data";
-import { View, Text, StyleSheet } from "react-native";
+import { useEffect } from "react";
+import { CATEGORIES, MEALS } from "../data/data";
+import { FlatList, StyleSheet } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import Meal from "../models/meal";
 
 import MealItem from "../components/MealsItem";
 import { RootStackParamList } from "../app/types";
-import { FlatList } from "react-native";
 
-type MealsScreenProps = StackScreenProps<RootStackParamList, "MealsScreen">;
-const MealsScreen = ({ route }: MealsScreenProps) => {
+type MealsScreenProps = StackScreenProps<RootStackParamList, "MealScreen">;
+const MealScreen: React.FC<MealsScreenProps> = ({ route, navigation }) => {
   const cateId = route.params.categoryId;
 
   const displayRenderItem = MEALS.filter((mealItem: Meal) => {
     return mealItem.categoryIds.indexOf(cateId) >= 0;
   });
-  const renderMealItem = ({ item }: { item: Meal }): JSX.Element => {
-    const mealItemProps = {      title:item.title,
-    imageUrl:item.imageUrl,
-    cals:item.cals,
-    carbs:item.carbs,
-    protein:item.protein,
-    duration: item.duration}
+  useEffect(() => {
+    const cateTitle = CATEGORIES.find(
+      (category) => category.id === cateId
+    )?.title;
+    navigation.setOptions({ title: cateTitle });
+  });
+
+  const renderMealItem = ({ item }: { item: Meal }) => {
+    const mealItemProps = {
+      id: item.id,
+      title: item.title,
+      imageUrl: item.imageUrl,
+      cals: item.cals,
+      carbs: item.carbs,
+      protein: item.protein,
+      duration: item.duration,
+    };
+
     return (
       <MealItem
-      ingredients={[]} steps={[]} isGlutenFree={false} isVegan={false} {...mealItemProps}        // ingredients={item.ingredients}
-        // steps={item.steps}
-        // isGlutenFree={item.isGlutenFree}
-        // isVegan={item.isVegan}
+        selectedMeal={undefined}
+        ingredients={[]}
+        steps={[]}
+        isGlutenFree={false}
+        isVegan={false}
+        {...mealItemProps}
       />
     );
   };
@@ -42,7 +55,7 @@ const MealsScreen = ({ route }: MealsScreenProps) => {
   );
 };
 
-export default MealsScreen;
+export default MealScreen;
 
 const styles = StyleSheet.create({
   container: {

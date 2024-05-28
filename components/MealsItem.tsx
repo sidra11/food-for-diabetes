@@ -7,7 +7,13 @@ import {
   Platform,
 } from "react-native";
 import React from "react";
-interface MealItemProps {
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../app/types";
+import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
+import MealItemDetail from "./MealItemDetail";
+export interface MealItemProps {
+  selectedMeal: any;
+  id:string;
   title: string;
   imageUrl: string;
   cals: number;
@@ -20,34 +26,25 @@ interface MealItemProps {
   isVegan: boolean;
   onPress?: () => void;
 }
-const MealItem: React.FC<MealItemProps> = ({
-  title,
-  imageUrl,
-  cals,
-  carbs,
-  protein,
-  duration,
-  onPress,
-}) => {
+type NavProps = NativeStackNavigationProp<RootStackParamList>;
+const MealItem: React.FC<MealItemProps> = (props) => {
+  const navigation =useNavigation<NavProps>();
+  const  pressMealItem = () => {
+  navigation.navigate('MealDetail',
+    {mealId:props.id}
+  );
+  }
   return (
     <View style={style.contentWrapper}>
       <Pressable
         android_ripple={{ color: "#cccccc" }}
         style={({ pressed }) => (pressed ? style.contentPressed : null)}
-        onPress={onPress}
+     onPress={pressMealItem}
       >
         <View style={style.innerWrapper}>
-          <Image style={style.imageContainer} source={{ uri: imageUrl }} />
-          <Text style={style.titleContainer}> {title}</Text>
-          <View style={style.textWrapper}>
-            <Text style={style.textContainer}> Calories: &nbsp;{cals}g</Text>
-            <Text style={style.textContainer}> Carbs:&nbsp;{carbs}g</Text>
-            <Text style={style.textContainer}> Protein:&nbsp;{protein}g</Text>
-            <Text style={style.textContainer}>
-              {" "}
-              Duration:&nbsp; {duration}m
-            </Text>
-          </View>
+          <Image style={style.imageContainer} source={{ uri: props.imageUrl }} />
+          <Text style={style.titleContainer}> {props.title}</Text>
+          <MealItemDetail cals={props.cals} carbs={props.carbs} protein={props.protein} duration={props.duration} />
         </View>
       </Pressable>
     </View>
