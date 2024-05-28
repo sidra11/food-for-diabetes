@@ -5,15 +5,25 @@ interface CategoryGridProps {
   title: string;
   color?: string;
   onPress?: () => void;
-
 }
 
-const CategoryGrid: React.FC<CategoryGridProps> = ({ title, color, onPress }) => {
+const CategoryGrid: React.FC<CategoryGridProps> = ({
+  title,
+  color,
+  onPress,
+}) => {
   return (
-    <View style={[styles.itemGrid, {backgroundColor:color}]}>
-      <Pressable  android_ripple={{color: '#cccccc'}} style={({pressed}) => [styles.buttonContainer,pressed ? styles.buttonPressed : null,]} onPress={onPress}>
+    <View style={[styles.itemGrid, { backgroundColor: color }]}>
+      <Pressable
+        android_ripple={{ color: "#cccccc" }}
+        style={({ pressed }) => [
+          styles.buttonContainer,
+          pressed ? styles.buttonPressed : null,
+        ]}
+        onPress={onPress}
+      >
         <View style={styles.textContainer}>
-        <Text style={styles.titleContainer}>{title}</Text>
+          <Text style={styles.titleContainer}>{title}</Text>
         </View>
       </Pressable>
     </View>
@@ -28,35 +38,33 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 8,
     elevation: 4,
-    backgroundColor: 'white',
-    shadowColor: 'black',
+    backgroundColor: "white",
+    shadowColor: "black",
     shadowOpacity: 0.25,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
-    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
   },
   buttonContainer: {
     flex: 1,
-    borderRadius: 8,   
-},
-buttonPressed: {
- opacity: .5,
-},
+    borderRadius: 8,
+  },
+  buttonPressed: {
+    opacity: 0.5,
+  },
 
   textContainer: {
     flex: 1,
     padding: 20,
-   alignContent: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',  
-    alignSelf: 'center',
-    borderRadius: 8,  
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    borderRadius: 8,
   },
   titleContainer: {
-    fontStyle:'normal',
-    fontWeight: 'bold',
-    fontSize: 24
-  }
-
-  
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: 24,
+  },
 });
