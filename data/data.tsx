@@ -2,12 +2,11 @@ import Category from "../models/category";
 import Meal from "../models/meal";
 
 export const CATEGORIES = [
-  new Category("c1", "Breakfast", "#f5428d"),
-  new Category("c2", "Lunch", "#f54242"),
-  new Category("c3", "Brunch", "#f5a442"),
-  new Category("c4", "Dinner", "#f5d142"),
-  new Category("c5", "Light & Lovely", "#368dff"),
-  new Category("c6", "Exotic", "#41d95d"),
+  new Category("c1", "Breakfast", "#f78db9","https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Customized_Coffee_Drink.jpg/1280px-Customized_Coffee_Drink.jpg" ),
+  new Category("c2", "Lunch", "#ef8585","https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Food-salad-healthy-lunch_%2824029103260%29.jpg/320px-Food-salad-healthy-lunch_%2824029103260%29.jpg"),
+  new Category("c3", "Brunch", "#f5a442","https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Healthy_Trendy_Brunch_%28Unsplash%29.jpg/320px-Healthy_Trendy_Brunch_%28Unsplash%29.jpg"),
+  new Category("c4", "Dinner", "#c3b16b", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Healthy_Pescetarian_Meal.jpg/320px-Healthy_Pescetarian_Meal.jpg"),
+  new Category("c5", "Light & Lovely", "#368dff","https://example.com/images/light_lovely.jpg"),
 ];
 export const MEALS = [
   new Meal(
@@ -18,7 +17,7 @@ export const MEALS = [
     18,
     5,
     "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Blueberry_muffins%2C_whole_and_partial.jpg/1280px-Blueberry_muffins%2C_whole_and_partial.jpg",
-    35,
+    5,
     [
       "1 cup whole wheat flour1 cup whole wheat flour.",
       "1 tsp baking soda.",

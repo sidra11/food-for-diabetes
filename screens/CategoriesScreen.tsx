@@ -13,6 +13,7 @@ const CategoriesScreen: React.FC = ({ navigation }: any) => {
       <CategoryGrid
         title={item.title}
         color={item.color}
+        image={item.image}
         onPress={pressHandles}
       />
     );
@@ -22,7 +23,7 @@ const CategoriesScreen: React.FC = ({ navigation }: any) => {
       data={CATEGORIES}
       keyExtractor={(item) => item.id}
       renderItem={renderCategoryItem}
-      numColumns={2}
+      numColumns={1}
     />
   );
 };
