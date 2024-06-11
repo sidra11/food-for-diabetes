@@ -1,16 +1,53 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, TextStyle, ScrollView } from "react-native";
+import React, { useLayoutEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+} from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../app/types";
 import { MEALS } from "../data/data";
 import MealItemDetail from "../components/MealItemDetail";
-
+import IconButton from "../components/IconButton";
+ import { addFavorite, removeFavorite } from "../store/favoritesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
 type Props = StackScreenProps<RootStackParamList, "MealDetail">;
 
-const MealDetailScreen: React.FC<Props> = ({ route }) => {
+const MealDetailScreen: React.FC<Props> = ({ route, navigation  }) => {
   const mealId = route.params.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+ 
+  const favoriteMealIds = useSelector((state:RootState) => state.favoriteMeals.ids);
+  const dispatch = useDispatch();
+  const mealIsFavorite = favoriteMealIds.includes(mealId);
 
+  const toggleFavoriteStatusHandler = () => {
+    if (mealIsFavorite) {
+     
+      dispatch(removeFavorite({ id: mealId }));
+    } else {
+ 
+      dispatch(addFavorite({ id: mealId }));
+    }
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <View><IconButton
+            onPress={toggleFavoriteStatusHandler}
+            icon={mealIsFavorite? 'heart': 'heart-outline'}
+            color="red"
+          ></IconButton>
+          <Text style={{ color: mealIsFavorite ? 'red' : 'white' }}>Favorites</Text></View>
+        );
+      },
+    });
+  });
   if (!selectedMeal) {
     return (
       <View style={styles.container}>
@@ -21,33 +58,32 @@ const MealDetailScreen: React.FC<Props> = ({ route }) => {
 
   return (
     <ScrollView>
-    <View style={styles.screen}>
-  
-      <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
-      <Text style={styles.title}>{selectedMeal.title}</Text>
-      <MealItemDetail
-        duration={selectedMeal.duration}
-        cals={selectedMeal.cals}
-        carbs={selectedMeal.carbs}
-        protein={selectedMeal.protein}
-        textStyle={styles.textContainer}
-      />
-      <View>
-        <Text style={styles.subtitle}>Ingredients</Text>
-        {selectedMeal.ingredients.map((ingredient) => (
-          <Text key={ingredient} style={styles.text}>
-            {ingredient}
+      <View style={styles.screen}>
+        <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
+        <Text style={styles.title}>{selectedMeal.title}</Text>
+        <MealItemDetail
+          duration={selectedMeal.duration}
+          cals={selectedMeal.cals}
+          carbs={selectedMeal.carbs}
+          protein={selectedMeal.protein}
+          textStyle={styles.textContainer}
+        />
+        <View>
+          <Text style={styles.subtitle}>Ingredients</Text>
+          {selectedMeal.ingredients.map((ingredient) => (
+            <Text key={ingredient} style={styles.text}>
+              {ingredient}
+            </Text>
+          ))}
+        </View>
+        <Text style={styles.subtitle}>Steps</Text>
+        {selectedMeal.steps.map((step) => (
+          <Text key={step} style={styles.text}>
+            {step}
           </Text>
         ))}
       </View>
-      <Text style={styles.subtitle}>Steps</Text>
-      {selectedMeal.steps.map((step) => (
-        <Text key={step} style={styles.text}>
-          {step}
-        </Text>
-      ))}
-    </View>
-  </ScrollView>
+    </ScrollView>
   );
 };
 
@@ -96,6 +132,12 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
+  favText: {
+    color: 'white',
+    marginBottom: 12,
+    justifyContent: 'center'
+  }, 
+
 });
 
 export default MealDetailScreen;
