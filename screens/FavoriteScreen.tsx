@@ -1,14 +1,16 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import MealItem from "../components/MealsItem";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store/store";
 import Meal from "../models/meal";
-import { MEALS } from "../data/data";
+
 
 const FavoriteMealScreen: React.FC = () => {
-  const meals = useSelector((state: RootState) => state.favoriteMeals.ids);
-  const favoriteMeals = MEALS.filter((meal) => meals.includes(meal.id));
+  const dispatch = useDispatch<AppDispatch>();
+  const meals = useSelector((state: RootState) => state.meals.meals);
+  const mealsItem = useSelector((state: RootState) => state.favoriteMeals.ids);
+  const favoriteMeals =  meals.filter((meal) => mealsItem.includes(meal.id));
   const renderMealItem = ({ item }: { item: Meal }) => {
     const mealItemProps = {
       id: item.id,
