@@ -51,5 +51,6 @@ Join our community of developers creating universal apps.
 
 - Preview for App
 
-- ![image](https://github.com/user-attachments/assets/7576748b-4b7c-4f85-9dff-2dc4d180d9b2)
+![image](https://github.com/user-attachments/assets/d7681901-0456-4b71-ac11-9adab8d1c309)
+
 
